@@ -383,9 +383,27 @@ function M.regex_by_case_searching(pat, plain_search, opts)
   }
 end
 
--- Word regex.
+-- Word regex
+-- Word regex for beginning of small word.
 function M.regex_by_word_start()
   return M.regex_by_searching('\\k\\+')
+end
+-- Word regex for beginning of big word (W movement equivalent in Vim).
+function M.regex_by_WORD_start()
+  -- Regex for big words (including punctuation)
+  return M.regex_by_searching('\\S\\+')
+end
+-- Word regex for end of small word.
+function M.regex_by_word_end()
+  -- return M.regex_by_searching('\\k\\+')
+  local punctuation = '[&~"#\'\\(\\){}\\[\\]\\-_\\\\^@+=$\\%\\*:/!\\.<>|,«»;\\?]'
+  return M.regex_by_searching('\\S$\\|\\w\\s\\+\\|\\w' .. punctuation ..'\\+\\|' .. punctuation ..'$\\|' .. punctuation ..'\\s\\+\\|' .. punctuation ..'\\w\\+')
+end
+-- Word regex for end of big word (W movement equivalent in Vim).
+function M.regex_by_WORD_end()
+  -- Any character at the end of the line 
+  -- or a non-space character followed by a whitespace characted
+  return M.regex_by_searching('\\S$\\|\\S\\s\\+')
 end
 
 -- Line regex.
