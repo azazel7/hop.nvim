@@ -7,8 +7,14 @@ endif
 
 " The jump-to-word command.
 command! HopWord              lua require'hop'.hint_words()
-command! HopWordBC            lua require'hop'.hint_words({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR })
-command! HopWordAC            lua require'hop'.hint_words({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR })
+command! HopWordBC            lua require'hop'.hint_words({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, position = require'hop.hint'.HintPosition.BEGIN, word_type = require'hop.hint'.WordType.NORMAL })
+command! HopWordAC            lua require'hop'.hint_words({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, position = require'hop.hint'.HintPosition.BEGIN, word_type = require'hop.hint'.WordType.NORMAL })
+command! HopEndWordAC         lua require'hop'.hint_words({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, position = require'hop.hint'.HintPosition.END, word_type = require'hop.hint'.WordType.NORMAL})
+command! HopEndWordBC         lua require'hop'.hint_words({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, position = require'hop.hint'.HintPosition.END, word_type = require'hop.hint'.WordType.NORMAL})
+command! HopWORDBC            lua require'hop'.hint_words({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, position = require'hop.hint'.HintPosition.BEGIN, word_type = require'hop.hint'.WordType.BIG })
+command! HopWORDAC            lua require'hop'.hint_words({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, position = require'hop.hint'.HintPosition.BEGIN, word_type = require'hop.hint'.WordType.BIG })
+command! HopEndWORDAC         lua require'hop'.hint_words({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, position = require'hop.hint'.HintPosition.END, word_type = require'hop.hint'.WordType.BIG})
+command! HopEndWORDBC         lua require'hop'.hint_words({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, position = require'hop.hint'.HintPosition.END, word_type = require'hop.hint'.WordType.BIG})
 command! HopWordCurrentLine   lua require'hop'.hint_words({ current_line_only = true })
 command! HopWordCurrentLineBC lua require'hop'.hint_words({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })
 command! HopWordCurrentLineAC lua require'hop'.hint_words({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })
