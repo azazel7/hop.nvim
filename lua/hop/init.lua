@@ -451,7 +451,8 @@ end
 
 function M.hint_words(opts)
   local jump_target = require'hop.jump_target'
-
+  local HintPosition = require'hop.hint'.HintPosition
+  local WordType = require'hop.hint'.WordType
   opts = override_opts(opts)
 
   local generator
@@ -461,8 +462,19 @@ function M.hint_words(opts)
     generator = jump_target.jump_targets_by_scanning_lines
   end
 
+  local word_function = jump_target.regex_by_word_start
+  if opts.position == HintPosition.END and opts.word_type == WordType.NORMAL then
+    word_function = jump_target.regex_by_word_end
+  elseif opts.position == HintPosition.BEGIN and opts.word_type == WordType.NORMAL then
+    word_function = jump_target.regex_by_word_start
+  elseif opts.position == HintPosition.END and opts.word_type == WordType.BIG then
+    word_function = jump_target.regex_by_WORD_end
+  elseif opts.position == HintPosition.BEGIN and opts.word_type == WordType.BIG then
+    word_function = jump_target.regex_by_WORD_start
+  end
+
   M.hint_with(
-    generator(jump_target.regex_by_word_start()),
+    generator(word_function()),
     opts
   )
 end

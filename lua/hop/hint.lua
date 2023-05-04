@@ -13,6 +13,10 @@ M.HintPosition = {
   MIDDLE = 2,
   END = 3,
 }
+M.WordType = {
+  BIG = 1,
+  NORMAL = 2,
+}
 
 local function tbl_to_str(label)
   local s = ''
